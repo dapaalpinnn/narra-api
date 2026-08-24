@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/tests/Coverage
 /vendor
 _ide_helper.php
 .env
