@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class AdminInitController extends Controller
 {
@@ -15,7 +16,7 @@ class AdminInitController extends Controller
         /** @var User $user */
         $user = $request->user();
 
-        // /** @var Role $role */
+        /** @var Role $role */
         $role = $user->role;
 
         return response()->json([

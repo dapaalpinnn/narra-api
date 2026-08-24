@@ -96,6 +96,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the role of the user.
+     */
+    public ?Role $role {
+        get {
+            return $this->roles()->first();
+        }
+    }
+
+    /**
      * Get the comments for the user.
      *
      * @return HasMany<Comment,$this>
