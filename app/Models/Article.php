@@ -16,7 +16,6 @@ use Illuminate\Support\Carbon;
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Author $author
  * @property-read Category $category
  * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
@@ -41,11 +40,6 @@ class Article extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function author()
-    {
-        return $this->belongsTo(Author::class);
     }
 
     public function comments()
