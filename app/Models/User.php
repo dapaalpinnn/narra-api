@@ -27,7 +27,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
- * @property int $role_id
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -58,7 +57,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUsername($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutPermission($permissions)
@@ -67,7 +65,7 @@ use Spatie\Permission\Traits\HasRoles;
  *
  * @mixin \Eloquent
  */
-#[Fillable(['name', 'email', 'password', 'role_id'])]
+#[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -100,7 +98,10 @@ class User extends Authenticatable
      */
     public ?Role $role {
         get {
-            return $this->roles()->first();
+            /** @var Role */
+            $role = $this->roles()->first();
+
+            return $role;
         }
     }
 

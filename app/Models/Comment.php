@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,12 +32,22 @@ use Illuminate\Support\Carbon;
 #[Fillable(['content', 'article_id', 'user_id'])]
 class Comment extends Model
 {
-    public function article()
+    /**
+     * Get the article that owns the comment.
+     *
+     * @return BelongsTo<Article, $this>
+     */
+    public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);
     }
 
-    public function user()
+    /**
+     * Get the user that owns the comment.
+     *
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

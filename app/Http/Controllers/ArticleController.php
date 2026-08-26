@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $articles = Auth::user()->role->name === 'writer'
             ? Article::where('author_id', Auth::user()->author->id)->with(['category', 'author.user'])->latest()->paginate(9)
@@ -24,6 +25,7 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('articles.create', compact('categories'));
     }
 
@@ -57,6 +59,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $article->load(['category', 'author.user', 'comments.user']);
+
         return request()->expectsJson()
             ? response()->json($article)
             : view('articles.show', compact('article'));
@@ -66,6 +69,7 @@ class ArticleController extends Controller
     {
         $this->authorizeArticle($article);
         $categories = Category::all();
+
         return view('articles.edit', compact('article', 'categories'));
     }
 
@@ -106,6 +110,7 @@ class ArticleController extends Controller
             Storage::disk('public')->delete($article->image);
         }
         $article->delete();
+
         return request()->expectsJson()
             ? response()->json(['message' => 'Artikel dihapus'])
             : redirect()->route('articles.index')->with('success', 'Artikel dihapus.');

@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RouteAdmin
+class RouteAuthor
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,7 @@ class RouteAdmin
         /** @var User $user */
         $user = $request->user();
 
-        if (empty($user->role) || $user->role->name !== Role::SUPERADMIN->value) {
+        if (empty($user->role) || $user->role->name !== Role::AUTHOR->value) {
             abort(403);
         }
 

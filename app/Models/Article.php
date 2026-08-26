@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -37,12 +39,22 @@ use Illuminate\Support\Carbon;
 #[Fillable(['title', 'content', 'category_id', 'author_id', 'image'])]
 class Article extends Model
 {
-    public function category()
+    /**
+     * Get the category that owns the article.
+     *
+     * @return BelongsTo<Category, $this>
+     */
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function comments()
+    /**
+     * Get all of the comments for the Article
+     *
+     * @return HasMany<Comment, $this>
+     */
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

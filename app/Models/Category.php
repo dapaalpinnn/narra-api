@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -28,9 +29,12 @@ use Illuminate\Support\Carbon;
 #[Fillable(['name'])]
 class Category extends Model
 {
-    protected $fillable = ['name'];
-
-    public function articles()
+    /**
+     * Get all of the articles for the Category
+     *
+     * @return HasMany<Article, $this>
+     */
+    public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
     }

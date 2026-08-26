@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends Factory<User>
@@ -19,8 +20,7 @@ class UserFactory extends Factory
 
     /**
      * Dummy password used for testing purposes. Use this
-     * password to login to the application in
-     * local development.
+     * password to login to the application in local development.
      */
     public const string DUMMY_PASSWORD = 'super-secret';
 
@@ -40,13 +40,14 @@ class UserFactory extends Factory
         ];
     }
 
-    public function member(): static
+    /**
+     * Append user name with role name that will be used and removed on configure().
+     */
+    public function role(string $roleName): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => null,
-            'username' => null,
-        ]);
+        $role = Role::findOrCreate($roleName);
+
+        return $this->afterCreating(fn (User $user) => $user->assignRole($role));
     }
 
     /**
