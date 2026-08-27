@@ -114,4 +114,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Get the initials of the user.
+     */
+    public function initials(): string
+    {
+        return mb_substr($this->name, 0, 2);
+    }
 }

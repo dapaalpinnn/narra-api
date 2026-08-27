@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdminArticleResource;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class AuthorArticleController extends Controller
+class AdminArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
+    {
+        $articles = Article::with('category')
+            ->latest()
+            ->paginate(10);
+
+        return AdminArticleResource::collection($articles);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         //
     }
