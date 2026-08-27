@@ -30,6 +30,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, Article> $articles
+ * @property-read int|null $articles_count
  * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
@@ -98,10 +100,7 @@ class User extends Authenticatable
      */
     public ?Role $role {
         get {
-            /** @var Role */
-            $role = $this->roles()->first();
-
-            return $role;
+            return $this->roles()->first();
         }
     }
 
@@ -113,6 +112,16 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get the articles for the user.
+     *
+     * @return HasMany<Article,$this>
+     */
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
     }
 
     /**

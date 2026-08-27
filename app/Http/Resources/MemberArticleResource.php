@@ -2,14 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/**
- * @mixin Article
- */
-class AdminArticleResource extends JsonResource
+class MemberArticleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

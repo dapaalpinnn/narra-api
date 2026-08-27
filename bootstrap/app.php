@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Middleware\RouteAdmin;
-use App\Http\Middleware\RouteAuthor;
+use App\Http\Middleware\RouteMember;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,8 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'superadmin' => RouteAdmin::class,
-            'author' => RouteAuthor::class,
+            'admin' => RouteAdmin::class,
+            'member' => RouteMember::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
