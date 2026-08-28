@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AuthorArticleResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Auth;
 
-class AuthorArticleController extends Controller
+class MemberArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): AnonymousResourceCollection
+    public function index()
     {
-        $user = Auth::user();
-
-        $articles = Article::with('category')
-            ->where('author_id', $user->id)
-            ->latest()
-            ->paginate(10);
-
-        return AuthorArticleResource::collection($articles);
+        //
     }
 
     /**
@@ -36,15 +26,7 @@ class AuthorArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show(Article $article)
     {
         //
     }

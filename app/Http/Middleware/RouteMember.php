@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RouteAuthor
+class RouteMember
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,7 @@ class RouteAuthor
         /** @var User $user */
         $user = $request->user();
 
-        if (empty($user->role) || $user->role->name !== Role::AUTHOR->value) {
+        if (empty($user->role) || $user->role->name !== Role::MEMBER->value) {
             abort(403);
         }
 

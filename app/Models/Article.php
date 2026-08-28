@@ -11,22 +11,17 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
- * @property int $category_id
- * @property int $author_id
  * @property string $title
  * @property string|null $image
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Category $category
  * @property-read Collection<int, Comment> $comments
  * @property-read int|null $comments_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Article whereAuthorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Article whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Article whereId($value)
@@ -36,17 +31,17 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
-#[Fillable(['title', 'content', 'category_id', 'author_id', 'image'])]
+#[Fillable(['title', 'content', 'image'])]
 class Article extends Model
 {
     /**
-     * Get the category that owns the article.
+     * Get the user that owns the Article
      *
-     * @return BelongsTo<Category, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function category(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

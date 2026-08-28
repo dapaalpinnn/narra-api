@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @mixin Article
  */
-class AuthorArticleResource extends JsonResource
+class AdminArticleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +18,6 @@ class AuthorArticleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'category' => $this->category->name,
-            'title' => $this->title,
-            'content' => $this->content,
-            'image' => $this->image,
-        ];
+        return parent::toArray($request);
     }
 }
